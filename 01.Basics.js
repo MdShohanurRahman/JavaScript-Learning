@@ -3,7 +3,7 @@ let x = 1;
 let y = 1;
 
 // Object-Oriented Programming (OOP)
-
+// Object Literal Syntax
 const circle = {
 
     radius: 1, // property
