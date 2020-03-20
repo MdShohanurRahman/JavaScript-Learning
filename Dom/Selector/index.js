@@ -39,8 +39,6 @@
 
 
 
-
-
  // querySelector function
 
  function $(selector) {
