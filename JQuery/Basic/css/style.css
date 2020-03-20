@@ -5,8 +5,28 @@ body {
     font-family: helvetica;
 }
 
+.styleclass {
+    border: 5px solid green
+}
+
+#drag {
+    width: 150px;
+    height: 60px;
+    padding: 0.5em;
+    background: blueviolet;
+}
+
 h1 {
-    margin-top: 100px;
+    margin-top: 10px;
+}
+
+.puppers {
+    float: left;
+}
+
+img {
+    width: 300px;
+    height: 250px;
 }
 
 ul {
