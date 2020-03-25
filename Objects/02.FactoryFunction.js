@@ -1,8 +1,9 @@
 /*
 
-If we use object literal syntax can use for one implementation. But when we 2 object 
-with same property then we have duplicate implementations. So we can use factory function
-constructor function for use same property and different objects
+If we use object literal syntax can usefor one implementation.
+But when we have 2 object with same property then we have to do 
+duplicate implementations.So we can use factory function.
+(We can also use constructor function)
 
 */
 
