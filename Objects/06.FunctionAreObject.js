@@ -3,6 +3,7 @@ function Circle(radius) {
         this.draw = function () {
             Console.log('draw');
         }
+    return this.radius
 }
 
 // same as -> const another = new Circle(1)
