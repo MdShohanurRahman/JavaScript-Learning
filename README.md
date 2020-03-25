@@ -45,7 +45,10 @@ console.log(circle.draw()); // Method
 ```javascript
 /*
 
-If we use object literal syntax can use for one implementation. But when we have 2 object with same property then we have to do duplicate implementations. So we can use factory function. (We can also use constructor function) 
+If we use object literal syntax can use for one implementation. 
+But when we have 2 object with same property then we have to 
+do duplicate implementations.So we can use factory function.
+(We can also use constructor function) 
 
 */
 
