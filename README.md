@@ -154,7 +154,7 @@ function Circle(radius) {
 const c1 = new Circle(1);
 ```
 
-Here we can see that draw method take extra memory for every instance.And we already know that it has built in **proto** , so our job is to be add draw method in that **proto**
+> Here we can see that draw method take extra memory for every instance.And we already know that it has built in **`__proto__`** , so our job is to be add draw method in that **`__proto__`**
 
 ```javascript
 function Circle(radius) {
@@ -476,4 +476,513 @@ mixin(Person.prototype, canEat, canWalk);
 
 const person = new Person();
 console.log(person);
+```
+
+## At A Glance (prototypical inheritance)
+
+```javascript
+function Shape() {}
+
+function Circle() {}
+
+// Prototypical inheritance
+Circle.prototype = Object.create(Shape.prototype);
+Circle.prototype.constructor = Circle;
+
+function Rectangle(color) {
+  // To call the super constructor
+  Shape.call(this, color);
+}
+
+// Method overriding
+Shape.prototype.draw = function() {};
+Circle.prototype.draw = function() {
+  // Call the base implementation
+  Shape.prototype.draw.call(this);
+
+  // Do additional stuff here
+};
+
+// Don't create large inheritance hierarchies.
+// One level of inheritance is fine.
+
+// Use mixins to combine multiple objects
+// and implement composition in JavaScript.
+const canEat = {
+  eat: function() {}
+};
+
+const canWalk = {
+  walk: function() {}
+};
+
+function mixin(target, ...sources) {
+  // Copies all the properties from all the source objects
+  // to the target object.
+  Object.assign(target, ...sources);
+}
+
+function Person() {}
+
+mixin(Person.prototype, canEat, canWalk);
+```
+
+## Example Of Prototypical Inheritance
+
+```javascript
+function HtmlElement() {
+  this.click = function() {
+    console.log("clicked");
+  };
+}
+
+HtmlElement.prototype.focus = function() {
+  console.log("focued");
+};
+
+function HTMLSelectElement(items = []) {
+  this.items = items;
+
+  this.addItem = function() {
+    this.items.push(item);
+  };
+
+  this.removeItem = function(item) {
+    this.items.splice(this.items.indexOf(item), 1);
+  };
+}
+
+/* if you have a function where you get constructor
+dynamically, and you want to create an instance of 
+an object based on that constructor, then you have 
+to reset the constructor property
+ */
+
+HtmlElement.prototype = new HtmlElement();
+HTMLSelectElement.prototype.constructor = HTMLSelectElement;
+```
+
+## Exercise Polymorphism
+
+```javascript
+function HtmlElement() {
+  this.click = function() {
+    console.log("clicked");
+  };
+}
+
+HtmlElement.prototype.focus = function() {
+  console.log("focued");
+};
+
+function HTMLSelectElement(items = []) {
+  this.items = items;
+
+  this.addItem = function() {
+    this.items.push(item);
+  };
+
+  this.removeItem = function(item) {
+    this.items.splice(this.items.indexOf(item), 1);
+  };
+
+  this.render = function() {
+    return `
+    <select> ${this.items
+      .map(
+        item => `
+    <option> ${item} </option>`
+      )
+      .join("")}
+    </select>`;
+  };
+}
+
+function HtmlImageElement(src) {
+  this.src = src;
+  this.render = function() {
+    return `img src = ${this.src} </>`;
+  };
+}
+
+HtmlImageElement.prototype = new HtmlElement();
+HtmlImageElement.prototype.constructor = HtmlImageElement; // reset constructor
+```
+
+## ES6 Class
+
+> Here is the new way to create objects and implement inheritance
+
+```javascript
+// pervious code
+/* function Circle(radius){
+  this.radius = radius;
+  this.draw = function(){
+    console.log('draw');
+  }
+}
+ */
+
+// in ES6
+
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+    this.move = function() {};
+  }
+
+  draw() {
+    console.log("draw");
+  }
+}
+```
+
+## Static Method
+
+```javascript
+// pervious code
+/* function Circle(radius){
+  this.radius = radius;
+  this.draw = function(){
+    console.log('draw');
+  }
+}
+ */
+
+// in ES6
+
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  // instance
+  draw() {
+    console.log("draw");
+  }
+
+  // static method
+  static parse(str) {
+    const radius = JSON.parse(str).radius;
+    return new Circle(radius);
+  }
+}
+
+const circle = Circle.parse('{"radius": 1}');
+console.log(circle);
+```
+
+#### Output
+
+```
+Circle {
+radius:1
+}
+```
+
+## this keyword in class block
+
+```javascript
+function Circle() {
+  this.draw = function() {
+    console.log(this);
+  };
+}
+
+const c = new Circle();
+const draw = c.draw;
+draw(); // [object Window]
+```
+
+to prevent this problem use `'use strict';` top of the code
+<br>
+
+**Now have a look in class syntax**
+
+>
+
+```javascript
+class Circle {
+  draw() {
+    console.log(this);
+  }
+}
+
+const c = new Circle();
+const draw = c.draw;
+draw(); // undefined
+/* 
+block of the class code automatically
+in the stric mode.can not override the
+global object
+*/
+```
+
+## Private members using `Symbols()`
+
+```javascript
+// create private property using Symbol()
+
+const _radius = Symbol();
+const _draw = Symbol();
+
+class Circle {
+  constructor(radius) {
+    this[_radius] = radius;
+  }
+
+  [_draw]() {}
+}
+
+const c = new Circle(1);
+/* const key = Object.getOwnPropertySymbols(c)[0];
+console.log(c[key]); */
+```
+
+## Private Members using `WeakMaps()`
+
+```javascript
+const _radius = new WeakMap();
+const _move = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+    _move.set(this, () => {
+      // don't use regular function
+      console.log("move", this);
+    });
+  }
+
+  draw() {
+    _radius.get(this);
+    _move.get(this)(); // cause function
+    console.log("draw");
+  }
+}
+
+const c = new Circle(1);
+```
+
+<br>
+
+> Similar Code base
+
+```javascript
+const privateProps = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    privateProps.set(this, {
+      radius: radius,
+      move: () => {
+        console.log(move, this);
+      }
+    });
+  }
+  draw() {
+    privateProps.get(this).radius;
+    privateProps.get(this).move;
+    console.log("draw");
+  }
+}
+
+const c = new Circle(1);
+```
+
+## Getter and Setter
+
+```javascript
+const _radius = new WeakMap();
+
+class Circle {
+  constructor(radius) {
+    _radius.set(this, radius);
+  }
+
+  // get radius like an object
+  // same as Object.defineProperty wher we set and get method
+
+  get radius() {
+    return _radius.get(this);
+  }
+
+  set radius(value) {
+    if (value <= 0) throw new Error("invalid radius");
+    _radius.set(this, value);
+  }
+}
+const c = new Circle(1);
+```
+
+## Inheritance
+
+```javascript
+class Shape {
+  move() {
+    console.log("move");
+  }
+}
+
+class Circle extends Shape {
+  draw() {
+    console.log("draw");
+  }
+}
+
+const circle = new Circle();
+/*you can access both 2 methods 
+circle.draw
+circle.move */
+```
+
+## `Super()` keyword for constructor inheritance
+
+> **Note:** If a parent class has a constructo and in the child class there is also a constructo then we should use super keywod for call the parent constructor (also passing sufficient argument if u want)
+
+```javascript
+class Shape {
+  constructor(color) {
+    this.color = color;
+  }
+  move() {
+    console.log("move");
+  }
+}
+
+class Circle extends Shape {
+  constructor() {
+    super("blue");
+  }
+  draw() {
+    console.log("draw");
+  }
+}
+
+const circle = new Circle();
+
+console.log(circle.draw()); // draw
+console.log(circle.color); // blue
+```
+
+## Method Overriding
+
+```javascript
+class Shape {
+  move() {
+    console.log("shape move");
+  }
+}
+
+class Circle extends Shape {
+  move() {
+    super.move(); // parent
+    console.log("circle move"); // override
+  }
+}
+
+const circle = new Circle();
+console.log(circle.move());
+```
+
+## Example (class at a glance)
+
+```javascript
+class Circle {
+  constructor(radius) {
+    this.radius = radius;
+  }
+
+  // These methods will be added to the prototype.
+  draw() {}
+
+  // This will be available on the Circle class (Circle.parse())
+  static parse(str) {}
+}
+
+// Using symbols to implement private properties and methods
+const _size = Symbol();
+const _draw = Symbol();
+
+class Square {
+  constructor(size) {
+    // "Kind of" private property
+    this[_size] = size;
+  }
+
+  // "Kind of" private method
+  [_draw]() {}
+
+  // By "kind of" I mean: these properties and methods are essentally
+  // part of the object and are accessible from the outside. But accessing
+  // them is hard and awkward.
+}
+
+// using WeakMaps to implement private properties and methods
+const _width = new WeakMap();
+
+class Rectangle {
+  constructor(width) {
+    _width.set(this, width);
+  }
+
+  draw() {
+    console.log("Rectangle with width" + _width.get(this));
+  }
+}
+
+// WeakMaps give us better protection than symbols. There is no way
+// to access private members implemented using WeakMaps from the
+// outside of an object.
+
+// Inheritance
+class Triangle extends Shape {
+  constructor(color) {
+    // To call the base constructor
+    super(color);
+  }
+
+  draw() {
+    // Call the base method
+    super.draw();
+
+    // Do some other stuff here
+  }
+}
+```
+
+## Example (stack implementation)
+
+```javascript
+const _items = new WeakMap();
+
+class Stack {
+  constructor() {
+    _items.set(this, []);
+  }
+
+  push(obj) {
+    _items.get(this).push(obj);
+  }
+
+  pop() {
+    const items = _items.get(this);
+
+    if (items.length === 0) throw new Error("Stack is empty.");
+
+    return items.pop();
+  }
+
+  peek() {
+    const items = _items.get(this);
+
+    if (items.length === 0) throw new Error("Stack is empty.");
+
+    return items[items.length - 1];
+  }
+
+  get count() {
+    return _items.get(this).length;
+  }
+}
 ```
