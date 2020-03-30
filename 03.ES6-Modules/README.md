@@ -116,29 +116,9 @@ npm run babel
 
 ```
 
-### working with webpack
+### Working with webpack
 
-```bash
-// install webpack globally
-npm i -g webpack-cli@2.0.14
 
-// in project folder
-webpack-cli init
-
-// now answers some question
-
-// then init --yes
-npm init --yes
-
-// update package.json
-  "scripts": {
-    "build": "webpack", // update this line
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-
-// bundle our application
-npm run build
-```
 
 
 

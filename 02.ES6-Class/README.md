@@ -1,4 +1,16 @@
 # **ES6 Class**
+# Table of contents <a name="TOC"></a>
+1. [Static Method](#Static_Method)
+2. [this keyword](#this_keyword)
+3. [Private members using Symbols()](#PrivatemembersusingSymbols)
+4. [Private members using WeakMaps()](#PrivatemembersusingWeakMaps)
+5. [Getter Setter](#GetterSetter)
+6. [Inheritance](#Inheritance)
+7. [Super()](#Super())
+8. [Method Overrriding](#methodoverrriding)
+9. [Class At A Glance](#ClassAtAGlance)
+10.[Stack Implementation Using Class](#StackImplementationUsingClass)
+
 
 > Here is the new way to create objects and implement inheritance
 
@@ -26,7 +38,7 @@ class Circle {
 }
 ```
 
-## Static Method
+## Static Method <a name='Static_Method'></a>
 
 ```javascript
 // pervious code
@@ -69,7 +81,7 @@ radius:1
 }
 ```
 
-## this keyword in class block
+## this keyword in class block <a name='this_keyword'></a>
 
 ```javascript
 function Circle() {
@@ -107,8 +119,8 @@ global object
 */
 ```
 
-## Private members using `Symbols()`
-
+<a name='PrivatemembersusingSymbols'></a>
+## Private members using `Symbols()` 
 ```javascript
 // create private property using Symbol()
 
@@ -127,7 +139,7 @@ const c = new Circle(1);
 /* const key = Object.getOwnPropertySymbols(c)[0];
 console.log(c[key]); */
 ```
-
+<a name='PrivatemembersusingWeakMaps'></a>
 ## Private Members using `WeakMaps()`
 
 ```javascript
@@ -179,7 +191,7 @@ class Circle {
 const c = new Circle(1);
 ```
 
-## Getter and Setter
+## Getter and Setter <a name='GetterSetter'> </a>
 
 ```javascript
 const _radius = new WeakMap();
@@ -204,7 +216,7 @@ class Circle {
 const c = new Circle(1);
 ```
 
-## Inheritance
+## Inheritance <a name='Inheritance'> </a>
 
 ```javascript
 class Shape {
@@ -224,7 +236,7 @@ const circle = new Circle();
 circle.draw
 circle.move */
 ```
-
+<a name='Super()'> </a>
 ## `Super()` keyword for constructor inheritance
 
 > **Note:** If a parent class has a constructo and in the child class there is also a constructo then we should use super keywod for call the parent constructor (also passing sufficient argument if u want)
@@ -254,7 +266,7 @@ console.log(circle.draw()); // draw
 console.log(circle.color); // blue
 ```
 
-## Method Overriding
+## Method Overriding <a name='methodoverrriding'> </a>
 
 ```javascript
 class Shape {
@@ -273,8 +285,8 @@ class Circle extends Shape {
 const circle = new Circle();
 console.log(circle.move());
 ```
-
-## Example (class at a glance)
+<a name='ClassAtAGlance'> </a>
+## Example (class at a glance) 
 
 ```javascript
 class Circle {
@@ -339,8 +351,8 @@ class Triangle extends Shape {
   }
 }
 ```
-
-## Example (stack implementation)
+<a name='StackImplementationUsingClass'> </a>
+## Stack Implementation Using Class
 
 ```javascript
 const _items = new WeakMap();
