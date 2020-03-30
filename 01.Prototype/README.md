@@ -1,4 +1,23 @@
 # Object Oriented Programming
+# Table of contents <a name="TOC"></a>
+1. [Inheritance](#Inheritance)
+2. [Prototypical_Inheritance](#Prototypical_Inheritance)
+3. [Multilevel_Inheritance](#Multilevel_Inheritance)
+4. [Constructor_Prototype](#Constructor_Prototype)
+5. [Prototype_vs_instance_member](#Prototype_vs_instance_member)
+6. [StopWatch_Example](#StopWatch_Example)
+7. [Creating your own prototypical inheritance](#Creating_Own_Prototypical_Inheritance)
+8. [Calling_Super_Inheritance](#Calling_Super_Inheritance)
+9. [Intermediate_Function_Inheritance](#Intermediate_Function_Inheritance)
+10. [Method_Overrriding](#Method_Overrriding)
+11. [Plymorphism](#Plymorphism)
+12. [Mixins](#Mixins)
+13. [At_A_Glance_Prototypical_Inheritance](#At_A_Glance_Prototypical_Inheritance)
+14. [Example](#Example)
+
+
+
+
 
 ### 4 pillar
 
@@ -253,9 +272,9 @@ function Stopwatch() {
   });
 }
 ```
-
-## Creating your own prototypical inheritance
 <a name='Creating_Own_Prototypical_Inheritance'></a>
+## Creating your own prototypical inheritance
+
 ```javascript
 function Shape() {}
 
