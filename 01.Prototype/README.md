@@ -15,7 +15,7 @@
 
 > Polymorphism : Refactor ugly switch/case statement
 
-## Inheritance
+## Inheritance <a name='Inheritance'></a>
 
 > 2 types
 
@@ -47,7 +47,7 @@ typeof String; // returns function
 String.prototype; // return all method
 ```
 
-## Prototypical
+## Prototypical Inheritance <a name='Prototypical_Inheritance'></a>
 
 ```javascript
 // A prototype is just a regular object.
@@ -66,7 +66,7 @@ x.__proto__ === y.__proto__;
 // true
 ```
 
-## Multilevel Inheritance
+## Multilevel Inheritance <a name='Multilevel_Inheritance'></a>
 
 ```javascript
 // goto console and write
@@ -95,7 +95,7 @@ configurable:true
 } */
 ```
 
-### Changing property attribute of an object
+#### Changing property attribute of an object
 
 ```
 writeable: false -> read only
@@ -113,16 +113,20 @@ Object.defineProperty(person, "name", {
 });
 ```
 
-## Construtor Prototypes
+## Construtor Prototypes <a name='Constructor_Prototype'></a>
 
 ```javascript
-// myObj.__proto__(parent Of myObj)
-// Constructor.prototype()
+// see in console 
+myObj.__proto__  // parent Of myObj
+/* Object.getPrototypeOf(myObj) */
+myObj.constructor.prototype
+/* both are same */
 
-// both are same
+
 
 // example
-let obj = {};
+let obj = {}; // typeof -> 'object'
+
 // see in console
 obj.__proto__;
 
@@ -133,13 +137,15 @@ obj.__proto__;
 // have a look as previous, both are same
 Object.prototype;
 
+/* So we can say that obj comes from Object constructor.that's why both property and method are same */
+
 // another example
 let array = [];
 array.__proto__;
 Array.prototype;
 ```
 
-## Prototype vs Instance Member
+## Prototype vs Instance Member <a name='Prototype_vs_instance_member'></a>
 
 First consider the following example
 
@@ -182,7 +188,7 @@ Circle.prototype.toString = function() {
 };
 ```
 
-## Iterating Instance and Prototype
+#### Iterating Instance and Prototype
 
 ```javascript
 console.log(Object.keys(c1));
@@ -205,7 +211,7 @@ console.log(c1.hasOwnProperty("radius"));
 // return true or false
 ```
 
-## StopWatch Example
+## StopWatch Example <a name='StopWatch_Example'></a>
 
 ```javascript
 function Stopwatch() {
@@ -249,7 +255,7 @@ function Stopwatch() {
 ```
 
 ## Creating your own prototypical inheritance
-
+<a name='Creating_Own_Prototypical_Inheritance'></a>
 ```javascript
 function Shape() {}
 
@@ -275,7 +281,7 @@ Circle.prototype.draw = function() {
 };
 ```
 
-## Calling The Super Constructor
+## Calling The Super Constructor <a name='Calling_Super_Inheritance'></a>
 
 ```javascript
 function Shape(color) {
@@ -300,7 +306,7 @@ Circle.prototype.draw = function() {
 };
 ```
 
-## Intermediate function Inheritance
+## Intermediate function Inheritance <a name='Intermediate_Function_Inheritance'></a>
 
 ```javascript
 function Shape(color) {
@@ -337,7 +343,7 @@ Circle.prototype.draw = function() {
 };
 ```
 
-## Method Overriding
+## Method Overriding <a name='Method_Overrriding'></a>
 
 ```javascript
 function Shape(color) {
@@ -372,7 +378,7 @@ const circle = new Circle();
 console.log(circle.dublicate()); // dublicate Circle
 ```
 
-## Polymorphism
+## Polymorphism <a name='Plymorphism'></a>
 
 ```javascript
 function Shape(color) {
@@ -417,7 +423,7 @@ for (let shape of shapes) {
 }
 ```
 
-## Mixins (composition)
+## Mixins (composition) <a name='Mixins'></a>
 
 ```javascript
 const canEat = {
@@ -478,7 +484,7 @@ const person = new Person();
 console.log(person);
 ```
 
-## At A Glance (prototypical inheritance)
+## At A Glance (prototypical inheritance)<a name='At_A_Glance_Prototypical_Inheritance'></a>
 
 ```javascript
 function Shape() {}
@@ -528,6 +534,7 @@ mixin(Person.prototype, canEat, canWalk);
 ```
 
 ## Example Of Prototypical Inheritance
+<a name='Example'></a>
 
 ```javascript
 function HtmlElement() {
