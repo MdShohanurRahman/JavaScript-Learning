@@ -15,7 +15,7 @@
 13. [Reduce](#reduce)
 14. [Eexercise](#exercise)
 
-## Adding Numbers <a name='adding_numbers></a>
+## Adding Numbers <a name='adding_numbers'></a>
 ```javascript
 const numbers = [3, 4];
 
